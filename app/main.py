@@ -2,8 +2,12 @@ from fastapi import FastAPI
 
 from app.core.config import settings
 from app.core.database import Base, engine
+
 from app.modules.gym.model import Gym
+from app.modules.membership.model import Membership
+
 from app.modules.gym.router import router as gym_router
+from app.modules.membership.router import router as membership_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -13,7 +17,9 @@ app = FastAPI(
     version=settings.APP_VERSION
 )
 
+# Register Routers
 app.include_router(gym_router)
+app.include_router(membership_router)
 
 
 @app.get("/")
