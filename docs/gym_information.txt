@@ -1,0 +1,64 @@
+Welcome to Knockout Fitness.
+
+Knockout Fitness is a modern gym specializing in:
+
+- MMA
+- Boxing
+- Kickboxing
+- Strength Training
+- Functional Fitness
+- Personal Training
+
+Gym Timings
+
+Morning:
+6:00 AM to 11:00 AM
+
+Evening:
+4:00 PM to 10:00 PM
+
+Membership Plans
+
+Basic Plan
+₹1500 per month
+
+Standard Plan
+₹2500 per month
+
+Premium Plan
+₹4000 per month
+
+Facilities
+
+- Cardio Zone
+- Free Weights
+- MMA Cage
+- Boxing Ring
+- Steam Bath
+- Locker Rooms
+
+Personal Training
+
+Available for ₹6000/month.
+
+MMA Coaching
+
+Morning Batch:
+7 AM
+
+Evening Batch:
+7 PM
+
+Address
+
+Knockout Fitness
+MG Road
+Bangalore
+
+Contact
+
+9876543210
+
+Email
+
+contact@knockoutfitness.com

@@ -9,6 +9,7 @@ from app.modules.lead.router import router as lead_router
 from app.modules.gym.router import router as gym_router
 from app.modules.membership.router import router as membership_router
 from app.modules.user.router import router as user_router
+from app.modules.chat.router import router as chat_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -23,6 +24,7 @@ app.include_router(gym_router)
 app.include_router(membership_router)
 app.include_router(lead_router)
 app.include_router(user_router)
+app.include_router(chat_router)
 
 @app.get("/")
 def home():
