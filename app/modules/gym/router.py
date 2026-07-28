@@ -4,7 +4,14 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
-from app.modules.gym.schema import GymCreate, GymResponse
+from app.core.security import get_current_user
+
+from app.modules.user.model import User
+
+from app.modules.gym.schema import (
+    GymCreate,
+    GymResponse
+)
 from app.modules.gym.service import GymService
 
 router = APIRouter(
@@ -16,14 +23,16 @@ router = APIRouter(
 @router.post("/", response_model=GymResponse)
 def create_gym(
     gym: GymCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return GymService.create_gym(db, gym)
 
 
 @router.get("/", response_model=List[GymResponse])
 def get_all_gyms(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return GymService.get_all_gyms(db)
 
@@ -31,7 +40,8 @@ def get_all_gyms(
 @router.get("/{gym_id}", response_model=GymResponse)
 def get_gym(
     gym_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return GymService.get_gym_by_id(db, gym_id)
 
@@ -39,6 +49,7 @@ def get_gym(
 @router.delete("/{gym_id}")
 def delete_gym(
     gym_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return GymService.delete_gym(db, gym_id)

@@ -4,9 +4,13 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.core.security import get_current_user
+
+from app.modules.user.model import User
+
 from app.modules.membership.schema import (
     MembershipCreate,
-    MembershipResponse,
+    MembershipResponse
 )
 from app.modules.membership.service import MembershipService
 
@@ -19,14 +23,16 @@ router = APIRouter(
 @router.post("/", response_model=MembershipResponse)
 def create_membership(
     membership: MembershipCreate,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return MembershipService.create_membership(db, membership)
 
 
 @router.get("/", response_model=List[MembershipResponse])
 def get_all_memberships(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     return MembershipService.get_all_memberships(db)
 
@@ -34,33 +40,16 @@ def get_all_memberships(
 @router.get("/{membership_id}", response_model=MembershipResponse)
 def get_membership(
     membership_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
-    return MembershipService.get_membership_by_id(
-        db,
-        membership_id
-    )
-
-
-@router.put("/{membership_id}", response_model=MembershipResponse)
-def update_membership(
-    membership_id: int,
-    membership: MembershipCreate,
-    db: Session = Depends(get_db)
-):
-    return MembershipService.update_membership(
-        db,
-        membership_id,
-        membership
-    )
+    return MembershipService.get_membership_by_id(db, membership_id)
 
 
 @router.delete("/{membership_id}")
 def delete_membership(
     membership_id: int,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
-    return MembershipService.delete_membership(
-        db,
-        membership_id
-    )
+    return MembershipService.delete_membership(db, membership_id)
