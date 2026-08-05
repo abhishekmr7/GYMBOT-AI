@@ -37,7 +37,22 @@ class LeadRepository:
         )
 
     @staticmethod
-    def update(db: Session, lead_id: int, lead: LeadCreate):
+    def get_by_phone(
+        db: Session,
+        phone: str
+    ):
+        return (
+            db.query(Lead)
+            .filter(Lead.phone == phone)
+            .first()
+        )
+
+    @staticmethod
+    def update(
+        db: Session,
+        lead_id: int,
+        lead: LeadCreate
+    ):
         db_lead = (
             db.query(Lead)
             .filter(Lead.id == lead_id)
@@ -59,7 +74,10 @@ class LeadRepository:
         return db_lead
 
     @staticmethod
-    def delete(db: Session, lead_id: int):
+    def delete(
+        db: Session,
+        lead_id: int
+    ):
         db_lead = (
             db.query(Lead)
             .filter(Lead.id == lead_id)
