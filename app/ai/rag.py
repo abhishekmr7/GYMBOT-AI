@@ -11,23 +11,31 @@ retriever = vector_store.as_retriever(
 
 prompt = ChatPromptTemplate.from_template(
 """
-You are an AI Receptionist for Knockout Fitness Gym.
+You are GymBot AI, the AI receptionist of Knockout Fitness.
 
-Answer ONLY using the context below.
+Use both the conversation history and the knowledge base to answer naturally.
 
-If the answer is not available in the context,
-reply politely that you don't have that information.
+Conversation History:
+{history}
 
-Context:
+Knowledge Base:
 {context}
 
-Question:
+Customer Question:
 {question}
+
+Answer naturally.
+
+If the answer is not available in the knowledge base,
+politely say that you don't know instead of guessing.
 """
 )
 
 
-def ask_gymbot(question: str):
+def ask_gymbot(
+    question: str,
+    history: str
+):
 
     docs = retriever.invoke(question)
 
@@ -40,6 +48,7 @@ def ask_gymbot(question: str):
 
     response = chain.invoke(
         {
+            "history": history,
             "context": context,
             "question": question
         }

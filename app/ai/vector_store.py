@@ -22,6 +22,6 @@ vector_store = Chroma.from_documents(
     persist_directory="chroma_db"
 )
 
-vector_store.persist()
+
 
 print("Knowledge Base Created Successfully")
